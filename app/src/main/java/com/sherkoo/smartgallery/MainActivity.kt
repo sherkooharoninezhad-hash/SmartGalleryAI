@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
                         val common = sampleNames.keys.intersect(names.keys)
                         val labelScore = if (sampleNames.isEmpty() || names.isEmpty()) 0f else common.size.toFloat() / max(sampleNames.size, names.size)
                         val bitmap = contentResolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it) }
-                        val hashScore = if (bitmap == null) 0f else 1f - (Integer.bitCount(sampleHash xor averageHash(bitmap)) / 64f)
+                        val hashScore = if (bitmap == null) 0f else 1f - (java.lang.Long.bitCount(sampleHash xor averageHash(bitmap)) / 64f)
                         (labelScore * 0.72f + hashScore * 0.28f).coerceIn(0f, 1f)
                     }
                 } catch (e: Exception) { status.text = "خطا در تحلیل عکس نمونه: ${e.localizedMessage ?: "نامشخص"}" }
